@@ -63,7 +63,7 @@ public class AnimatedULogoView: UIView {
 //    animateMaskLayer()
 
 //    animateCircleLayerShrink()
-        animateCircleLayerGrow()
+        animateCircleLayer()
 //    animateLineLayer()
 //    animateSquareLayer()
   }
@@ -125,7 +125,7 @@ extension AnimatedULogoView {
   private func animateMaskLayer() {
   }
   
-  private func animateCircleLayerGrow() {
+  private func animateCircleLayer() {
     // strokeEnd
     let strokeEndAnimation = CAKeyframeAnimation(keyPath: "strokeEnd")
     strokeEndAnimation.timingFunction = strokeEndTimingFunction
@@ -143,10 +143,19 @@ extension AnimatedULogoView {
     transformAnimation.fromValue = NSValue(CATransform3D: startingTransform)
     transformAnimation.toValue = NSValue(CATransform3D: CATransform3DIdentity)
 
+    let transformAnimation2 = CABasicAnimation(keyPath: "transform")
+    transformAnimation2.timingFunction = strokeEndTimingFunction
+    transformAnimation2.duration = kAnimationDuration - kAnimationDurationDelay
+    
+    var startingTransform2 = CATransform3DMakeRotation(-CGFloat(M_PI_4), 0, 0, 1)
+    startingTransform2 = CATransform3DScale(startingTransform2, 0.25, 0.25, 1)
+    transformAnimation2.fromValue = NSValue(CATransform3D: CATransform3DIdentity)
+    transformAnimation2.toValue = NSValue(CATransform3D: startingTransform2)
+
     
     // Group
     let groupAnimation = CAAnimationGroup()
-    groupAnimation.animations = [strokeEndAnimation, transformAnimation]
+    groupAnimation.animations = [strokeEndAnimation, transformAnimation, transformAnimation2]
     groupAnimation.repeatCount = Float.infinity
     groupAnimation.duration = kAnimationDuration
     groupAnimation.beginTime = beginTime
@@ -155,35 +164,47 @@ extension AnimatedULogoView {
     circleLayer.addAnimation(groupAnimation, forKey: "looping")
   }
     
-    private func animateCircleLayerShrink() {
-        // strokeEnd
-        let strokeEndAnimation = CAKeyframeAnimation(keyPath: "strokeEnd")
-        strokeEndAnimation.timingFunction = strokeEndTimingFunction
-        strokeEndAnimation.duration = kAnimationDuration - kAnimationDurationDelay
-        strokeEndAnimation.values = [1.0, 2.0]
-        strokeEndAnimation.keyTimes = [0.0, 1.0]
+//    private func animateCircleLayerShrink() {
+//        // strokeEnd
+//        let strokeEndAnimation = CAKeyframeAnimation(keyPath: "strokeEnd")
+//        strokeEndAnimation.timingFunction = strokeEndTimingFunction
+//        strokeEndAnimation.duration = kAnimationDuration - kAnimationDurationDelay
+//        strokeEndAnimation.values = [1.0, 2.0]
+//        strokeEndAnimation.keyTimes = [0.0, 1.0]
+//        
+//        // transform
+////        let transformAnimation = CABasicAnimation(keyPath: "transform")
+////        transformAnimation.timingFunction = strokeEndTimingFunction
+////        transformAnimation.duration = kAnimationDuration - kAnimationDurationDelay
+//        
+////        var startingTransform = CATransform3DMakeRotation(-CGFloat(M_PI_4), 0, 0, 1)
+////        startingTransform = CATransform3DScale(startingTransform, 0.25, 0.25, 1)
+////        transformAnimation.fromValue = NSValue(CATransform3D: startingTransform)
+////        transformAnimation.toValue = NSValue(CATransform3D: CATransform3DIdentity)
+//        
+
         
-        // transform
-        let transformAnimation = CABasicAnimation(keyPath: "transform")
-        transformAnimation.timingFunction = strokeEndTimingFunction
-        transformAnimation.duration = kAnimationDuration - kAnimationDurationDelay
-        
-        var startingTransform = CATransform3DMakeRotation(-CGFloat(M_PI_4), 0, 0, 1)
-        startingTransform = CATransform3DScale(startingTransform, 0.25, 0.25, 1)
-        transformAnimation.fromValue = NSValue(CATransform3D: CATransform3DIdentity)
-        transformAnimation.toValue = NSValue(CATransform3D: startingTransform)
-        
-        
-        // Group
-        let groupAnimation = CAAnimationGroup()
-        groupAnimation.animations = [strokeEndAnimation, transformAnimation]
-        groupAnimation.repeatCount = Float.infinity
-        groupAnimation.duration = kAnimationDuration
-        groupAnimation.beginTime = beginTime
-        groupAnimation.timeOffset = startTimeOffset
-        
-        circleLayer.addAnimation(groupAnimation, forKey: "looping")
-    }
+//        let transformAnimation2 = CABasicAnimation(keyPath: "transform")
+//        transformAnimation2.timingFunction = strokeEndTimingFunction
+//        transformAnimation2.duration = kAnimationDuration - kAnimationDurationDelay
+//        
+//        var startingTransform2 = CATransform3DMakeRotation(-CGFloat(M_PI_4), 0, 0, 1)
+//        startingTransform2 = CATransform3DScale(startingTransform2, 0.25, 0.25, 1)
+//        transformAnimation2.toValue = NSValue(CATransform3D: CATransform3DIdentity)
+//        transformAnimation2.fromValue = NSValue(CATransform3D: startingTransform2)
+//
+////
+//        
+//        // Group
+//        let groupAnimation = CAAnimationGroup()
+//        groupAnimation.animations = [strokeEndAnimation, transformAnimation]
+//        groupAnimation.repeatCount = Float.infinity
+//        groupAnimation.duration = kAnimationDuration
+//        groupAnimation.beginTime = beginTime
+//        groupAnimation.timeOffset = startTimeOffset
+//        
+//        circleLayer.addAnimation(groupAnimation, forKey: "looping")
+//    }
     
     
   
