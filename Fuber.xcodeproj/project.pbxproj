@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		09F0B5E61D63A6CB001AA084 /* Logo1.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 09F0B5E51D63A6CB001AA084 /* Logo1.pdf */; };
+		09F0B5E81D63E3FE001AA084 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A636BB101CB54DB600114E8E /* LaunchScreen.storyboard */; };
 		A636BB0F1CB54DB600114E8E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A636BB0E1CB54DB600114E8E /* Assets.xcassets */; };
 		A636BB121CB54DB600114E8E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A636BB101CB54DB600114E8E /* LaunchScreen.storyboard */; };
 		A636BB1E1CB54E1000114E8E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A636BB191CB54E1000114E8E /* AppDelegate.swift */; };
@@ -69,6 +71,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		09F0B5E51D63A6CB001AA084 /* Logo1.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = Logo1.pdf; sourceTree = "<group>"; };
 		A636BB041CB54DB600114E8E /* Fuber.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fuber.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A636BB0E1CB54DB600114E8E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A636BB111CB54DB600114E8E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -165,6 +168,7 @@
 				A6AEE1F21CDC437E004C6864 /* Constants.swift */,
 				A636BB381CB54E5F00114E8E /* TileGridView.swift */,
 				A636BB391CB54E5F00114E8E /* TileView.swift */,
+				09F0B5E51D63A6CB001AA084 /* Logo1.pdf */,
 				A636BB3B1CB54E5F00114E8E /* Chimes.xcassets */,
 			);
 			path = SplashScreenUI;
@@ -316,7 +320,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				09F0B5E81D63E3FE001AA084 /* LaunchScreen.storyboard in Resources */,
 				A636BB431CB54E5F00114E8E /* Chimes.xcassets in Resources */,
+				09F0B5E61D63A6CB001AA084 /* Logo1.pdf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

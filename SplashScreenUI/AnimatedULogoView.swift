@@ -29,9 +29,9 @@ public class AnimatedULogoView: UIView {
   private let circleLayerTimingFunction   = CAMediaTimingFunction(controlPoints: 0.65, 0.0, 0.40, 1.0)
   private let fadeInSquareTimingFunction = CAMediaTimingFunction(controlPoints: 0.15, 0, 0.85, 1.0)
   
-  private let radius: CGFloat = 37.5
+  private let radius: CGFloat = 22.5
   private let squareLayerLength = 21.0
-  private let startTimeOffset = 0.7 * kAnimationDuration
+  private let startTimeOffset = 10.0 * kAnimationDuration
   
   private var circleLayer: CAShapeLayer!
   private var squareLayer: CAShapeLayer!
@@ -44,24 +44,28 @@ public class AnimatedULogoView: UIView {
     super.init(frame: frame)
     
     circleLayer = generateCircleLayer()
+    circleLayer.position = CGPoint(x: 21, y: 0)
+
     lineLayer = generateLineLayer()
     squareLayer = generateSquareLayer()
     maskLayer = generateMaskLayer()
     
-    layer.mask = maskLayer
+//    layer.mask = maskLayer
     layer.addSublayer(circleLayer)
-    layer.addSublayer(lineLayer)
-    layer.addSublayer(squareLayer)
+//    layer.addSublayer(lineLayer)
+//    layer.addSublayer(squareLayer)
   }
   
   public func startAnimating() {
     beginTime = CACurrentMediaTime()
     layer.anchorPoint = CGPointZero
     
-    animateMaskLayer()
-    animateCircleLayer()
-    animateLineLayer()
-    animateSquareLayer()
+//    animateMaskLayer()
+
+//    animateCircleLayerShrink()
+        animateCircleLayerGrow()
+//    animateLineLayer()
+//    animateSquareLayer()
   }
   
   required public init?(coder aDecoder: NSCoder) {
@@ -121,8 +125,67 @@ extension AnimatedULogoView {
   private func animateMaskLayer() {
   }
   
-  private func animateCircleLayer() {
+  private func animateCircleLayerGrow() {
+    // strokeEnd
+    let strokeEndAnimation = CAKeyframeAnimation(keyPath: "strokeEnd")
+    strokeEndAnimation.timingFunction = strokeEndTimingFunction
+    strokeEndAnimation.duration = kAnimationDuration - kAnimationDurationDelay
+    strokeEndAnimation.values = [1.0, 2.0]
+    strokeEndAnimation.keyTimes = [0.0, 1.0]
+    
+    // transform
+    let transformAnimation = CABasicAnimation(keyPath: "transform")
+    transformAnimation.timingFunction = strokeEndTimingFunction
+    transformAnimation.duration = kAnimationDuration - kAnimationDurationDelay
+    
+    var startingTransform = CATransform3DMakeRotation(-CGFloat(M_PI_4), 0, 0, 1)
+    startingTransform = CATransform3DScale(startingTransform, 0.25, 0.25, 1)
+    transformAnimation.fromValue = NSValue(CATransform3D: startingTransform)
+    transformAnimation.toValue = NSValue(CATransform3D: CATransform3DIdentity)
+
+    
+    // Group
+    let groupAnimation = CAAnimationGroup()
+    groupAnimation.animations = [strokeEndAnimation, transformAnimation]
+    groupAnimation.repeatCount = Float.infinity
+    groupAnimation.duration = kAnimationDuration
+    groupAnimation.beginTime = beginTime
+    groupAnimation.timeOffset = startTimeOffset
+    
+    circleLayer.addAnimation(groupAnimation, forKey: "looping")
   }
+    
+    private func animateCircleLayerShrink() {
+        // strokeEnd
+        let strokeEndAnimation = CAKeyframeAnimation(keyPath: "strokeEnd")
+        strokeEndAnimation.timingFunction = strokeEndTimingFunction
+        strokeEndAnimation.duration = kAnimationDuration - kAnimationDurationDelay
+        strokeEndAnimation.values = [1.0, 2.0]
+        strokeEndAnimation.keyTimes = [0.0, 1.0]
+        
+        // transform
+        let transformAnimation = CABasicAnimation(keyPath: "transform")
+        transformAnimation.timingFunction = strokeEndTimingFunction
+        transformAnimation.duration = kAnimationDuration - kAnimationDurationDelay
+        
+        var startingTransform = CATransform3DMakeRotation(-CGFloat(M_PI_4), 0, 0, 1)
+        startingTransform = CATransform3DScale(startingTransform, 0.25, 0.25, 1)
+        transformAnimation.fromValue = NSValue(CATransform3D: CATransform3DIdentity)
+        transformAnimation.toValue = NSValue(CATransform3D: startingTransform)
+        
+        
+        // Group
+        let groupAnimation = CAAnimationGroup()
+        groupAnimation.animations = [strokeEndAnimation, transformAnimation]
+        groupAnimation.repeatCount = Float.infinity
+        groupAnimation.duration = kAnimationDuration
+        groupAnimation.beginTime = beginTime
+        groupAnimation.timeOffset = startTimeOffset
+        
+        circleLayer.addAnimation(groupAnimation, forKey: "looping")
+    }
+    
+    
   
   private func animateLineLayer() {
   }

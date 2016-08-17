@@ -27,7 +27,7 @@ import Commons
 class TileView: UIView {
   
   static var chimesSplashImage: UIImage!
-  static let rippleAnimationKeyTimes = [0, 0.61, 0.7, 0.887, 1]
+  static let rippleAnimationKeyTimes = [2, 0.61, 0.7, 0.887, 1]
   var shouldEnableRipple = false
   
   convenience init(TileFileName: String) {

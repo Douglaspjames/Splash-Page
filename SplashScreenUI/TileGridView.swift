@@ -34,7 +34,7 @@ class TileGridView: UIView {
   private var logoLabel: UILabel!
   private var tileViewRows: [[TileView]] = []
   private var beginTime: CFTimeInterval = 0
-  private let kRippleDelayMultiplier: NSTimeInterval = 0.0006666
+  private let kRippleDelayMultiplier: NSTimeInterval = 0.0000
   
   required init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
@@ -58,7 +58,7 @@ class TileGridView: UIView {
     layer.masksToBounds = true
     
     containerView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 630.0, height: 990.0))
-    containerView.backgroundColor = UIColor.fuberBlue()
+    containerView.backgroundColor = UIColor.clearColor()
     containerView.clipsToBounds = false
     containerView.layer.masksToBounds = false
     addSubview(containerView)
@@ -80,7 +80,7 @@ extension TileGridView {
   
   private func generateLogoLabel()->UILabel {
     let label = UILabel()
-    label.text = "F         BER"
+    label.text = "   R E P     S E        "
     label.font = UIFont.systemFontOfSize(50)
     label.textColor = UIColor.whiteColor()
     label.sizeToFit()
@@ -127,6 +127,14 @@ extension TileGridView {
   }
   
   private func startAnimatingWithBeginTime(beginTime: NSTimeInterval) {
+    
+    for tileRows in tileViewRows {
+        for view in tileRows {
+            view.startAnimatingWithDuration(kAnimationDuration, beginTime: beginTime, rippleDelay: 0, rippleOffset: CGPointZero)
+        }
+    }
+    
+    
   }
   
 }
